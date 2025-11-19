@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LayerSync</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <style>
+      .video-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0;
+        margin: 1.75rem 0;
+        align-items: stretch;
+      }
+      @media (max-width: 960px) {
+        .video-container {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .video-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .video-item video,
+      .video-item img {
+        width: 65%;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        object-fit: contain;
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.7);
+        display: block;
+        margin: 0 auto;
+      }
+
+      .video-description {
+        margin: 0 0 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .training-subsection {
+        margin-top: 3rem;
+      }
+
+      .training-title {
+        margin-bottom: 1.5rem;
+      }
+
+      .training-row {
+        margin-bottom: 2rem;
+      }
+
+      .training-label {
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--muted);
+      }
+
+      .training-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      @media (max-width: 1024px) {
+        .training-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 600px) {
+        .training-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .training-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      .training-card video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        object-fit: contain;
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .finetuning-subsection {
+        margin-top: 2.5rem;
+      }
+
+      .audio-training-subsection {
+        margin-top: 3rem;
+      }
+
+      .audio-training-intro {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .audio-training-grid {
+        gap: 16px;
+      }
+
+      .audio-training-grid .audio-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+        height: 100%;
+      }
+
+      .pseudo-video-container {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .pseudo-video-container video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        object-fit: cover;
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      .img-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+        margin: 3rem 0;
+      }
+      @media (max-width: 1024px) {
+        .img-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 768px) {
+        .img-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .img-grid img {
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        object-fit: cover;
+      }
+
+      .audio-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin: 1.5rem 0 3rem;
+        align-items: start;
+      }
+      @media (max-width: 768px) {
+        .audio-grid-2 {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .audio-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin: 1.5rem 0 3rem;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .audio-grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 560px) {
+        .audio-grid-3 {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .audio-card {
+        padding: 12px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .audio-epoch {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .row-label {
+        margin: 10px 0 6px;
+        font-weight: 700;
+        text-align: left;
+      }
+      audio {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .motion-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      @media (max-width: 720px) {
+        .motion-row {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .motion-label {
+        margin: 0 0 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .motion-card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .motion-card video {
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        object-fit: contain;
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.7);
+      }
+  </style>
+   
+</head>
+<body>
+  <!-- <div style="background-color: #e6ffe6; padding: 10px; text-align: center; color: green; font-weight: bold;">
+    We recommend using Chrome for the best experience. Videos might not work on Safari.
+  </div> -->
+<section class="hero title-section">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1">
+             LayerSync: Self-aligning Intermediate Layers
+          </h1>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <h2 class="title is-2">Image Generation</h2>
+    <p class="section-description">
+      <strong>LayerSync improves generation quality without relying on external representation.</strong> We compare the images generated by SiT-XL/2 when regularized with dispersive and LayerSync.
+      All the models are trained on ImageNet 256×256 for 400K iterations, share the same noise, sampler, and number of sampling steps, and none of them use classifier-free guidance.
+    </p>
+
+    <div class="figure-triptych single">
+      <img src="./static/images/website.png" alt="LayerSync Image Generation Comparison" loading="lazy">
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="audio-seeds">
+  <div class="container is-max-desktop audio-narrow has-text-centered">
+    <h2 class="title is-2">Audio Generation</h2>
+    
+    <!-- === Audio Samples Subsection === -->
+    <div class="subsection" id="audio-samples">
+      <h3 class="title is-3"></h3>
+      <p class="section-description">
+        Side-by-side comparison of audio samples generated with Baseline vs LayerSync. Both models are trained for the same number of iterations, share the same noise, sampler, and number of sampling steps, and none of them use classifier-free guidance.
+      </p>
+      <div class="seed-nav">
+        <span>Samples:</span>
+        <a href="#sample-01" class="tag is-link is-light">01</a>
+        <a href="#sample-02" class="tag is-link is-light">02</a>
+        <a href="#sample-03" class="tag is-link is-light">03</a>
+        <a href="#sample-04" class="tag is-link is-light">04</a>
+        <a href="#sample-05" class="tag is-link is-light">05</a>
+        <a href="#sample-06" class="tag is-link is-light">06</a>
+        <a href="#sample-07" class="tag is-link is-light">07</a>
+        <!-- <a href="#sample-08" class="tag is-link is-light">08</a>
+        <a href="#sample-09" class="tag is-link is-light">09</a>
+        <a href="#sample-10" class="tag is-link is-light">10</a>
+        <a href="#sample-11" class="tag is-link is-light">11</a> -->
+        <!-- <a href="#sample-12" class="tag is-link is-light">12</a>
+        <a href="#sample-13" class="tag is-link is-light">13</a>
+        <a href="#sample-14" class="tag is-link is-light">14</a>
+        <a href="#sample-15" class="tag is-link is-light">15</a>
+        <a href="#sample-16" class="tag is-link is-light">16</a>
+        <a href="#sample-17" class="tag is-link is-light">17</a> -->
+      </div>
+
+      <!-- Sample 01 -->
+      <div id="sample-01" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 01</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/02/vanilla/Baseline_0039000_sample_019_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/02/layersync/LayerSync_0039000_sample_019_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 02 -->
+      <div id="sample-02" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 02</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/03/vanilla/Baseline_0039000_sample_025_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/03/layersync/LayerSync_0039000_sample_025_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 03 -->
+      <div id="sample-03" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 03</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/04/vanilla/Baseline_0039000_sample_034_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/04/layersync/LayerSync_0039000_sample_034_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 05
+      <div id="sample-05" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 05</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/05/vanilla/Baseline_0039000_sample_037_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/05/layersync/LayerSync_0039000_sample_037_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 04 -->
+      <div id="sample-04" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 04</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/06/vanilla/Baseline_0039000_sample_040_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/06/layersync/LayerSync_0039000_sample_040_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 05 -->
+      <div id="sample-05" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 05</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/07/vanilla/Baseline_0039000_sample_043_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/07/layersync/LayerSync_0039000_sample_043_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 08
+      <div id="sample-08" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 08</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/08/vanilla/Baseline_0039000_sample_047_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/08/layersync/LayerSync_0039000_sample_047_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 09
+      <div id="sample-09" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 09</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/09/vanilla/Baseline_0039000_sample_053_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/09/layersync/LayerSync_0039000_sample_053_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 06 -->
+      <div id="sample-06" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 06</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/10/vanilla/Baseline_0039000_sample_061_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/10/layersync/LayerSync_0039000_sample_061_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 11
+      <div id="sample-11" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 11</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/11/vanilla/Baseline_0039000_sample_063_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/11/layersync/LayerSync_0039000_sample_063_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 12
+      <div id="sample-12" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 12</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/12/vanilla/Baseline_0039000_sample_072_gpu0_20250925_033649.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/12/layersync/LayerSync_0039000_sample_072_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 07 -->
+      <div id="sample-07" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 07</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/13/vanilla/LayerSync_0039000_sample_075_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/13/layersync/LayerSync_0039000_sample_075_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample 08 -->
+      <!-- <div id="sample-08" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 08</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/14/vanilla/LayerSync_0039000_sample_083_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/14/layersync/LayerSync_0039000_sample_083_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 09 -->
+      <!-- <div id="sample-09" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 09</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/15/vanilla/LayerSync_0039000_sample_084_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/15/layersync/LayerSync_0039000_sample_084_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 10 -->
+      <!-- <div id="sample-10" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 10</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/16/vanilla/LayerSync_0039000_sample_086_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/16/layersync/LayerSync_0039000_sample_086_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sample 11 -->
+      <!-- <div id="sample-11" class="seed-section">
+        <h4 class="title is-5 seed-title">Sample 11</h4>
+        <div class="audio-grid-2">
+          <div class="audio-card">
+            <div class="row-label">Baseline</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/17/vanilla/LayerSync_0039000_sample_099_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="row-label">LayerSync</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/17/layersync/LayerSync_0039000_sample_099_gpu0_20250925_023600.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- === Evolution over Training Subsection === -->
+    <div class="training-subsection audio-training-subsection" id="evolution-training">
+      <h3 class="title is-3 training-title">Evolution over Training</h3>
+      <p class="section-description audio-training-intro">
+        The evolution of audio generation over different epoches.
+      </p>
+
+      <div class="training-row audio-training-row">
+        <div class="training-label">Baseline</div>
+        <div class="training-grid audio-training-grid">
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 280</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/vanilla/Vanilla_epoch280.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 475</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/vanilla/Vanilla_epoch475.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 650</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/vanilla/Baseline_epoch650.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <div class="training-row audio-training-row">
+        <div class="training-label">Baseline + LayerSync</div>
+        <div class="training-grid audio-training-grid">
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 280</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/layersync/LayerSync_epoch280.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 475</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/layersync/LayerSync_epoch475.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 650</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed01/layersync/LayerSync_epoch650.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- === Seed 2 === -->
+      <!-- <div id="seed-2" class="seed-section">
+        <h4 class="title is-5 seed-title">Seed 2</h4>
+
+        <div class="row-label">Baseline</div>
+        <div class="audio-grid-3">
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 280</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/vanilla/epoch280.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 475</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/vanilla/epoch475.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 650</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/vanilla/epoch650.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+
+        <div class="row-label">LayerSync</div>
+        <div class="audio-grid-3">
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 280</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/layersync/epoch280.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 475</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/layersync/epoch475.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-epoch">Epoch 650</div>
+            <audio controls preload="metadata">
+              <source src="./static/audio/seed02/layersync/epoch650.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="motion-generation">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-2">Text-Conditioned Human Motion Generation</h2>
+    <p class="section-description">
+      Qualitative comparison between human motions generated with MDM and MDM + LayerSync. The condition text is randomly selected from HumanML3D test set, both models are trained for the same number of iterations and the generated samples share the same noise.  
+    </p>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="motion-label">MDM</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/vanilla/vanilla_sample00_rep01.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-card">
+        <div class="motion-label">MDM + LayerSync</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/ours/ours_sample00_rep01.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="motion-label">MDM</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/vanilla/vanilla_sample04_rep02.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-card">
+        <div class="motion-label">MDM + LayerSync</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/ours/ours_sample04_rep02.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="motion-label">MDM</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/vanilla/vanilla_sample13_rep00.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-card">
+        <div class="motion-label">MDM + LayerSync</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/ours/ours_sample13_rep00.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="motion-label">MDM</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/vanilla/vanilla_sample28_rep00.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-card">
+        <div class="motion-label">MDM + LayerSync</div>
+        <video controls preload="metadata">
+          <source src="./static/motion/ours/ours_sample28_rep00.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <h2 class="title is-2">Video Generation</h2>
+    <p class="section-description">
+
+    </p>
+
+        <div class="finetuning-subsection">
+      <h3 class="title is-3 training-title">Training on CLEVRER</h3>
+      <p class="section-description">
+        Qualitative comparision for unconditional video generation on CLEVRER dataset between baseline and baseline + LayerSync. Both models are trained for the same number of iterations.
+      </p>
+
+      <div class="training-row">
+        <div class="training-label">Baseline</div>
+        <div class="training-grid">
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00002.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00037.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00038.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00138.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00173.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/vanilla/sample_00643.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="training-row">
+        <div class="training-label">Baseline + LayerSync</div>
+        <div class="training-grid">
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00010.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00038.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00050.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00138.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00173.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="training-card">
+            <video controls preload="metadata">
+              <source src="./static/videos/clever/ours/sample_00364.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="training-subsection">
+      <h3 class="title is-3 training-title">Finetuning on SSv2</h3>
+      <p class="section-description">
+        Qualitative comparision for finetuning Wan2.1 and CogVideoX-2B on SSv2 dataset for text to video generation. 
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">Wan2.1</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/vanilla/00002433.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">Wan2.1 + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/ours/00002433.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">Wan2.1</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/vanilla/00004616.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">Wan2.1 + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/ours/00004616.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">Wan2.1</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/vanilla/00004955.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">Wan2.1 + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/ours/00004955.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">Wan2.1</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/vanilla/00009178.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">Wan2.1 + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog/ours/00009178.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">CogVideoX</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/vanilla/00000126.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">CogVideoX + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/ours/00000126.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">CogVideoX</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/vanilla/00008935.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">CogVideoX + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/ours/00008935.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <div class="video-item">
+          <p class="video-description">CogVideoX</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/vanilla/00009346.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <p class="video-description">CogVideoX + LayerSync</p>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="./static/videos/cog-vid/ours/00009346.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+</body>
+</html>
